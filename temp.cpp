@@ -1,48 +1,39 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
+#include <stdio.h>
 
-
-void showVec(std::vector<int>& nums)
+int addTwoNumbers(int list1[], int list2[], int size1, int size2)
 {
-    //for (auto n : nums) std::cout << n;
-    for (int i = 0; i < nums.size(); i++)
+    // We dont know the size of the list
+    // The elements are not consecutive
+
+    int reverse = 0;
+
+    for (int i = 0; i < size1; i++)
     {
-        std::cout << nums[i] << std::endl;
-    }
-}
-
-void organizeVec(std::vector<int>& nums)
-{
-    int temp = 0;
-
-    int length = nums.size();
-
-    for (int i = 0; i < length; i++)
-    {
-        for (int j = i + 1; j < length; j++)
+        if (list1[i + 1] != '\0')
         {
-            if (nums[i] > nums[j])
-            {
-                temp = nums[i];
-                nums[i] = nums[j];
-                nums[j] = temp;
-            }
-        }   
+            reverse += list1[i] * (i * 10);
+            //reverse += list1[i];
+        }
+        else
+        {
+            //reverse += list1[i];
+        }  
     }
 
-    showVec(nums);
+    return reverse;
 }
-
 
 int main()
 {
-    std::vector<int> nums = {4, 3, 3, 2, 1};
+    int list1[3] = {2, 4, 3};
+    int list2[3] = {5, 6, 4};
 
-    organizeVec(nums);
+    int size1 = sizeof(list1) / sizeof(list1[0]);
+    int size2 = sizeof(list2) / sizeof(list2[0]);
 
-    for (int n : nums) std::cout << n << ", ";
-    std::cout << std::endl;
-   
+    int num = addTwoNumbers(list1, list2, size1, size2); // 342 + 465 = 807
+
+    printf("Number: %d\n", num);
+
     return 0;
 }

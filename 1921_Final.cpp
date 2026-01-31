@@ -35,7 +35,7 @@ public:
 int main()
 {
     Solution test1, test2, test3, test4;
-
+    
     std::vector<int> dist4  = {23,6,20,44,46,22,19,34,36,40,45,22,8,11,47,42,27,49,5,45,34};
     std::vector<int> speed4 = {2,20,5,1,2,2,2,8,1,7,2,1,2,2,2,7,2,1,1,1,1};
 
