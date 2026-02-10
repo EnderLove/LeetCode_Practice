@@ -1,6 +1,5 @@
 #include <iostream>
 
-//Definition for a binary tree node.
 struct TreeNode {
     int val;
     TreeNode *left;
@@ -14,7 +13,6 @@ class Solution {
 public:
     TreeNode *root = nullptr;
     int sum  = 0;
-    int temp = 0;
     int valRight = 0;
 
     TreeNode* insert(int val, TreeNode *node){
@@ -28,51 +26,19 @@ public:
         if (node == nullptr) return node;        
 
         bstToGst(node->right);
-        std::cout << "VAL: " << node->val << std::endl;
-        sum += temp;
-        temp = node->val;
-        valRight = (node->right) ? node->right->val : 0;
-        node->val += valRight;
-        bstToGst(node->left);
-
-        return node;
-    }
-
-    TreeNode* testing(TreeNode* node) {
-        if (node == nullptr) return node;        
-
-        testing(node->right);
-        std::cout << "VAL: " << node->val << std::endl;
-        std::cout << "Temp: " << temp << std::endl;
-        std::cout << "Sum : " << sum  << std::endl;
-        sum += temp;
-        temp = node->val;
-        valRight = (node->right) ? node->right->val : 0;
-        node->val = temp + sum;
-        testing(node->left);
-
-        return node;
-    }
-
-    TreeNode* foo(TreeNode* node) {
-        if (node == nullptr) return node;        
-
-        bstToGst(node->left);
-        node->val -= sum;
-        std::cout << "VAL: " << node->val << std::endl;
-        bstToGst(node->right);
-
-        return node;
-    }
-
-    int prefix(TreeNode *node){
-        if (node == nullptr) return 0;
-
-        prefix(node->right);
         sum += node->val;
-        prefix(node->left);
-        std::cout << sum << std::endl;
-        return sum;
+        node->val = sum;
+        bstToGst(node->left);
+
+        return node;
+    }
+    
+    int pre = 0;
+    TreeNode* toGst(TreeNode* root) {
+        if (root->right) toGst(root->right);
+        pre = root->val = pre + root->val;
+        if (root->left) toGst(root->left);
+        return root;
     }
 
     void printTree(TreeNode *node){
@@ -91,13 +57,8 @@ int main(){
 
     for (int it : root) test.root = test.insert(it, test.root);
 
-    test.testing(test.root);
-    //test.bstToGst(test.root);
-    //test.prefix(test.root);
-    //test.foo(test.root);
+    test.bstToGst(test.root);
     test.printTree(test.root);
-
-
 
     std::cout << "\n";
     return 0;
